@@ -9,7 +9,7 @@
 	Tilt sensor(SW200D)
 
 ## Circuit Diagram:
- <img width="803" height="721" alt="image" src="https://github.com/user-attachments/assets/3815ea39-c5f7-492e-aeea-71b8db4fce6d" />
+<img width="1185" height="766" alt="image" src="https://github.com/user-attachments/assets/d0a8cadd-a308-4e61-aa3d-80b140e52ed9" />
 
 ## Theory :
  The Arduino Uno is powered by the ATmega328P, an 8-bit microcontroller that runs at 16 MHz. It has 32 KB of flash memory, 2 KB of SRAM, and 1 KB of EEPROM. The board has 14 digital I/O pins (of which 6 can be used as PWM outputs) and 6 analog input pins. These pins allow the board to interface with various sensors, actuators, and other devices.The Arduino Uno can be powered via a USB connection or an external power supply. The board has a built-in voltage regulator to manage power from 7 to 12 volts.
@@ -47,44 +47,34 @@ Step 7: Save Your Work
 •	Save the Circuit: Click "Save" to keep your circuit design and code for future use.
 
 ## Code:
+#include <LiquidCrystal.h>
 
-// Anti-Theft Alert System using Tilt Sensor + Buzzer + LED
-
-const int tiltSensor = 2;   // Tilt sensor connected to D2
-const int buzzer = 7;       // Buzzer connected to D7
-const int led = 8;          // LED connected to D8
-
+const int tilt=2;
+const int led=8,buzzer=9;
 void setup() {
-  pinMode(tiltSensor, INPUT_PULLUP);  // Internal pull-up, tilt sensor → GND when tilted
-  pinMode(buzzer, OUTPUT);
+  
+  pinMode(tilt,INPUT);
   pinMode(led, OUTPUT);
-
-  Serial.begin(9600);
-  Serial.println("Anti-Theft Alert System Ready");
+  pinMode(buzzer, OUTPUT);
 }
-
 void loop() {
-  int tiltState = digitalRead(tiltSensor);
-
-  if (tiltState == LOW) {   // Tilt detected
-    tone(buzzer, 1000);         // Play 1000 Hz tone (1kHz beep)
-    digitalWrite(led, HIGH);    // Turn LED ON
-    Serial.println("⚠️ Tilt Detected - Possible Theft!");
-    delay(200);
-    tone(buzzer, 2000);         // Change to 2000 Hz tone (higher pitch)
-    delay(200);
-  } else {
-    noTone(buzzer);             // Stop sound
-    digitalWrite(led, LOW);     // Turn LED OFF
+  
+  if(digitalRead(tilt))
+  {
+  digitalWrite(led, LOW);
+  digitalWrite(buzzer, LOW);
   }
-
+  else
+  {
+  digitalWrite(led, HIGH);
+  digitalWrite(buzzer, HIGH);
+  }
   delay(100);
 }
 
 ## Output:
 
- 
-
+https://github.com/user-attachments/assets/6f71a2d2-5283-4d9a-b0c2-fa916bcf7d2f
 
 ## Result:
 
