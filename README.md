@@ -48,7 +48,38 @@ Step 7: Save Your Work
 
 ## Code:
 
+// Anti-Theft Alert System using Tilt Sensor + Buzzer + LED
 
+const int tiltSensor = 2;   // Tilt sensor connected to D2
+const int buzzer = 7;       // Buzzer connected to D7
+const int led = 8;          // LED connected to D8
+
+void setup() {
+  pinMode(tiltSensor, INPUT_PULLUP);  // Internal pull-up, tilt sensor → GND when tilted
+  pinMode(buzzer, OUTPUT);
+  pinMode(led, OUTPUT);
+
+  Serial.begin(9600);
+  Serial.println("Anti-Theft Alert System Ready");
+}
+
+void loop() {
+  int tiltState = digitalRead(tiltSensor);
+
+  if (tiltState == LOW) {   // Tilt detected
+    tone(buzzer, 1000);         // Play 1000 Hz tone (1kHz beep)
+    digitalWrite(led, HIGH);    // Turn LED ON
+    Serial.println("⚠️ Tilt Detected - Possible Theft!");
+    delay(200);
+    tone(buzzer, 2000);         // Change to 2000 Hz tone (higher pitch)
+    delay(200);
+  } else {
+    noTone(buzzer);             // Stop sound
+    digitalWrite(led, LOW);     // Turn LED OFF
+  }
+
+  delay(100);
+}
 
 ## Output:
 
